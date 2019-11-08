@@ -5,15 +5,24 @@ import { Slider, Row, Col } from "antd";
 
 const App = () => {
     const [cars, setCars] = useState([]);
-    const [distance, setDistance] = useState<number | [number, number]>(50);
-    const [duration, setDuration] = useState<number | [number, number]>(1);
+    const [isInit, setInit] = useState(true);
+    const [distance, setDistance] = useState<number>(50);
+    const [duration, setDuration] = useState<number>(1);
+
+    /*
+    * Load all cars on start
+    */
     useEffect(() => {
         axios.get("http://localhost:3001/cars.json").then(result => {
             setCars(result.data);
         });
     }, []);
 
+    /*
+    * Get cars matching distance constraint
+    */
     const getMatchingDistance = distance => {
+        if (isInit) setInit(false);
         setDistance(distance);
         axios
             .get(
@@ -27,7 +36,11 @@ const App = () => {
             });
     };
 
-    const getMatchingDuration = duration => {
+    /*
+    * Get cars matching duration constraint
+    */
+    const getMatchingDuration = (duration: number):void => {
+        if (isInit) setInit(false);
         setDuration(duration);
         axios
             .get(
@@ -41,12 +54,20 @@ const App = () => {
             });
     };
 
+    /*
+    * Calculate total price of rent
+    */
+    const calculatePrice = (pricePerDay: number, pricePerKm: number): number => {
+        return Number(
+            ((pricePerDay / 100) * duration + (pricePerKm / 100) * distance).toFixed(2)
+        );
+    };
+
     return (
         <div>
             <div className={"head"}>
                 <h1>Car rental</h1>
             </div>
-
 
             <div className={"options"}>
                 <h3>Filter results</h3>
@@ -88,21 +109,18 @@ const App = () => {
             </div>
             <div className={"grid"}>
                 {cars.map(
-                    ({
-                         id,
-                         picturePath,
-                         brand,
-                         model,
-                         pricePerDay,
-                         pricePerKm,
-                         availability
-                     }) => (
+                    ({ id, picturePath, brand, model, pricePerDay, pricePerKm }) => (
                         <div className={"vehicle"} key={id}>
                             <img alt={id} src={picturePath} />
                             <div className={"about"}>
                                 <h3>{`${brand} ${model}`}</h3>
                                 <span>{`Price per day: ${pricePerDay / 100}$`}</span>{" "}
                                 <span>{`Price per km: ${pricePerKm}¢`}</span>
+                            </div>
+                            <div className={"pricing"}>
+                                {!isInit && (
+                                    <span>{`Total price: ${calculatePrice(pricePerDay, pricePerKm)}$`}</span>
+                                )}
                             </div>
                         </div>
                     )
