@@ -10,10 +10,8 @@ body {
     text-align: center;
     background-color: #f0f0f0;
     padding: 15px;
-    margin: 0 0 10px;
     top: 0;
     width: 100%;
-    height: 30px;
 }
 
 .head h1 {
@@ -29,7 +27,7 @@ body {
 }
 
 .vehicle {
-
+    border-radius: 15px;
     width: 100%;
     -webkit-box-shadow: 0 5px 13px -3px rgba(0, 0, 0, 0.55);
     -moz-box-shadow: 0 5px 13px -3px rgba(0, 0, 0, 0.55);
@@ -37,6 +35,8 @@ body {
 }
 
 img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     max-width: 100%;
 }
 
@@ -49,3 +49,43 @@ img {
 .about span {
     display: block;
 }
+
+
+.options {
+    width: 60%;
+    border: 1px solid #a0a0a0;
+    border-radius: 8px;
+    margin: 25px auto;
+    padding: 10px;
+}
+
+
+
+
+.options .count {
+    margin-left: 16px;
+    margin-top: 8px;
+    font-size: 16px
+}
+
+.options span {
+    font-weight: bold;
+}
+
+.filter {
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+
+@media (max-width: 576px) { .options {
+    width: 90%;
+}
+}
+
+
+@media (max-width: 768px) { }
+
+@media (max-width: 992px) { }
+
+@media (max-width: 1200px) {  }
