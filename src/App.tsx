@@ -55,13 +55,43 @@ const App = () => {
     };
 
     /*
-    * Calculate total price of rent
+    * Calculate percentage of reduction
     */
-    const calculatePrice = (pricePerDay: number, pricePerKm: number): number => {
-        return Number(
-            ((pricePerDay / 100) * duration + (pricePerKm / 100) * distance).toFixed(2)
-        );
+    const getPercentageAmount = () => {
+        let percentage = 0;
+
+        if(duration>10)
+            percentage=50;
+        else if(duration>4)
+            percentage=30;
+        else if(duration>1)
+            percentage=10;
+        return percentage;
     };
+
+    /*
+    * Store function result to avoid multiple call to function
+     */
+    const percentageAmount = getPercentageAmount();
+
+    /*
+    * Calculate total price with reduction
+    */
+    const calculatePriceWithReduction = (pricePerDay: number, pricePerKm: number): number => {
+        let totalPrice = (pricePerDay / 100) * duration + (pricePerKm / 100) * distance;
+            let reduction = (totalPrice/100)*percentageAmount;
+            console.log(reduction);
+        return Number((totalPrice-reduction).toFixed(2));
+    };
+
+    /*
+     * Calculate total price without reduction
+     */
+    const calculateOriginalPrice = (pricePerDay: number, pricePerKm: number): number => {
+        let totalPrice = (pricePerDay / 100) * duration + (pricePerKm / 100) * distance;
+        return Number((totalPrice).toFixed(2));
+    };
+
 
     return (
         <div>
@@ -96,7 +126,7 @@ const App = () => {
                                 min={1}
                                 max={30}
                                 step={1}
-                                onChange={n => getMatchingDuration(n)}
+                                onChange={n => getMatchingDuration(n as number)}
                             />
                         </Col>
                         <Col span={4}>
@@ -114,12 +144,18 @@ const App = () => {
                             <img alt={id} src={picturePath} />
                             <div className={"about"}>
                                 <h3>{`${brand} ${model}`}</h3>
-                                <span>{`Price per day: ${pricePerDay / 100}$`}</span>{" "}
-                                <span>{`Price per km: ${pricePerKm}¢`}</span>
+                                <span>{`Price per day: $${pricePerDay / 100}`}</span>
+                                <span>{`Price per km: ₵${pricePerKm}`}</span>
                             </div>
                             <div className={"pricing"}>
                                 {!isInit && (
-                                    <span>{`Total price: ${calculatePrice(pricePerDay, pricePerKm)}$`}</span>
+                                    <>
+                                        <span className={"percentage"}>{percentageAmount ? `Get ${percentageAmount}% off !` : null}</span>
+                                        <span>
+                                            Total price: {`$${calculatePriceWithReduction(pricePerDay, pricePerKm)} `}
+                                            {percentageAmount ? (<del className={'oldPrice'}>${calculateOriginalPrice(pricePerDay, pricePerKm)}</del>) : null}
+                                        </span>
+                                    </>
                                 )}
                             </div>
                         </div>

@@ -53,6 +53,22 @@ img {
     position: absolute;
 }
 
+.pricing * {
+    text-align: end;
+    display: block;
+}
+
+.percentage {
+    color: darkred;
+    font-style: italic;
+}
+
+.oldPrice {
+    display: inline-block;
+    font-size: smaller;
+    font-weight: 400;
+}
+
 .about span {
     display: block;
 }
@@ -65,8 +81,6 @@ img {
     margin: 25px auto;
     padding: 10px;
 }
-
-
 
 
 .options .count {
@@ -85,14 +99,18 @@ img {
 }
 
 
-@media (max-width: 576px) { .options {
-    width: 90%;
+@media (max-width: 576px) {
+    .options {
+        width: 90%;
+    }
 }
+
+
+@media (max-width: 768px) {
 }
 
+@media (max-width: 992px) {
+}
 
-@media (max-width: 768px) { }
-
-@media (max-width: 992px) { }
-
-@media (max-width: 1200px) {  }
+@media (max-width: 1200px) {
+}
