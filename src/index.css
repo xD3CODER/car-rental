@@ -1,0 +1,51 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Lato', sans-serif;
+}
+
+.head {
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin: 0 0 10px;
+    top: 0;
+    width: 100%;
+    height: 30px;
+}
+
+.head h1 {
+    margin: 0;
+}
+
+.grid {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+    align-items: stretch;
+}
+
+.vehicle {
+
+    width: 100%;
+    -webkit-box-shadow: 0 5px 13px -3px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0 5px 13px -3px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 5px 13px -3px rgba(0, 0, 0, 0.55);
+}
+
+img {
+    max-width: 100%;
+}
+
+.about {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px
+}
+
+.about span {
+    display: block;
+}
